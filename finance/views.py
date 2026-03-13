@@ -5,4 +5,5 @@ from django.http import HttpResponse
 
 
 def finance(request):
-    return HttpResponse("finança!")
+    return HttpResponse("pagina de finança!")
+

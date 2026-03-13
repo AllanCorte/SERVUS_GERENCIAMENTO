@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 
 def ministries(request):
-    return HttpResponse("ministerios!")
+    return HttpResponse("pagina de ministerios!")

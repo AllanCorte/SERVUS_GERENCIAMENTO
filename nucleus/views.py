@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 
 def nucleus(request):
-    return HttpResponse("nucleo!!")
+    return HttpResponse("pagina do nucleo!!")

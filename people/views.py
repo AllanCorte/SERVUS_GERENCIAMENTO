@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 
 def people(request):
-    return HttpResponse("pessoa!")
+    return HttpResponse("pagina pessoas!")

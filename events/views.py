@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 
 def events(request):
-    return HttpResponse("evento! allan")
+    return HttpResponse("pagina de eventos!")

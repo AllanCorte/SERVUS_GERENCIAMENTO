@@ -16,7 +16,7 @@ class Ministerio(models.Model):
         return self.nome
 
 
-class MembroMministerio(models.Model):
+class MembroMinisterio(models.Model):
     ministerio = models.ForeignKey(
         Ministerio, on_delete=models.CASCADE, related_name='membros')
     pessoa = models.ForeignKey(

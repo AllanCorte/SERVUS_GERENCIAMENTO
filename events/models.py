@@ -61,7 +61,7 @@ class Inscricao(models.Model):
             return f'{self.pessoa.nome} - {self.encontro.nome}'
 
 
-class PResenca(models.Model):
+class Presenca(models.Model):
     dia = models.ForeignKey(
         Dia, on_delete=models.CASCADE, related_nome='presencas')
     pessoa = models.ForeignKey(

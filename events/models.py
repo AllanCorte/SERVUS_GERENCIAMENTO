@@ -5,7 +5,7 @@ from people.models import Pessoa
 class Encontro(models.Model):
     STATUS_CHOICES = [
         ('agendado', 'Agendado'),
-        ('em_andamento', 'Em andamento'),
+        ('em_andamento', 'Em Andamento'),
         ('concluido', 'Concluído'),
         ('cancelado', 'Cancelado'),
     ]
@@ -16,7 +16,8 @@ class Encontro(models.Model):
     data_fim = models.DateField()
     local = models.CharField(max_length=200, blank=True)
     valor = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='agendado')
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default='agendado')
     criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -29,39 +30,43 @@ class Encontro(models.Model):
 
 
 class Dia(models.Model):
-    encontro = models.ForeignKey(Encontro, on_delete=models.CASCADE, related_name='dias')
-    numero = models.PositiveIntegerField()
-    data = models.DateField()
+    encontro = models.ForeignKey(
+        Encontro, on_delete=models.CASCADE, related_name='dias')
+    numero = models.DateField()
 
     class Meta:
-        verbose_name = 'Dia do Encontro'
-        verbose_name_plural = 'Dias do Encontro'
+        verbose_name = "Dia"
+        verbose_name_plural = 'Dias'
         ordering = ['numero']
         unique_together = ['encontro', 'numero']
 
     def __str__(self):
-        return f'{self.encontro.nome} — Dia {self.numero} ({self.data})'
+        return f'{self.encontro.nome}- Dia {self.numero}'
 
 
 class Inscricao(models.Model):
-    encontro = models.ForeignKey(Encontro, on_delete=models.CASCADE, related_name='inscricoes')
-    pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name='inscricoes')
-    data_inscricao = models.DateTimeField(auto_now_add=True)
+    encontro = models.ForeignKey(
+        Encontro, on_delete=models.CASCADE, related_name='inscricoes')
+    pessoa = models.ForeignKey(
+        Pessoa, on_delete=models.CASCADE, related_name='inscricoes')
+    data = models.DateTimeField(auto_now_add=True)
+    pago = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Inscrição'
-        verbose_name_plural = 'Inscrições'
+        verboose_name_plural = 'Inscrições'
         unique_together = ['encontro', 'pessoa']
 
-    def __str__(self):
-        return f'{self.pessoa.nome} — {self.encontro.nome}'
+        def __str__(self):
+            return f'{self.pessoa.nome} - {self.encontro.nome}'
 
 
-class Presenca(models.Model):
-    dia = models.ForeignKey(Dia, on_delete=models.CASCADE, related_name='presencas')
-    pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name='presencas')
+class PResenca(models.Model):
+    dia = models.ForeignKey(
+        Dia, on_delete=models.CASCADE, related_nome='presencas')
+    pessoa = models.ForeignKey(
+        Pessoa, on_delete=models.CASCADE, related_name="presencas")
     presente = models.BooleanField(default=False)
-    horario = models.TimeField(null=True, blank=True)
 
     class Meta:
         verbose_name = 'Presença'
@@ -69,5 +74,4 @@ class Presenca(models.Model):
         unique_together = ['dia', 'pessoa']
 
     def __str__(self):
-        status = 'Presente' if self.presente else 'Ausente'
-        return f'{self.pessoa.nome} — {self.dia} — {status}'
+        return f'{self.pessoa.nome} - {self.dia}'

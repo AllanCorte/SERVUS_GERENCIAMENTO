@@ -1,7 +1,6 @@
 from django.db import models
-from events.models import Encontro
 from people.models import Pessoa
-# Create your models here.
+from events.models import Encontro
 
 
 class Entrada(models.Model):
@@ -16,20 +15,17 @@ class Entrada(models.Model):
     descricao = models.CharField(max_length=200, blank=True)
     valor = models.DecimalField(max_digits=8, decimal_places=2)
     data = models.DateField()
-    pessoa = models.ForeignKey(
-        Pessoa, on_delete=models.SET_NULL, null=True, related_name='entradas')
-    encontro = models.ForeignKey(
-        Encontro, onde_delet=models.SET_NULL, null=True, blank=True,
-        related_name='entradas')
+    pessoa = models.ForeignKey(Pessoa, on_delete=models.SET_NULL, null=True, blank=True, related_name='entradas')
+    encontro = models.ForeignKey(Encontro, on_delete=models.SET_NULL, null=True, blank=True, related_name='entradas')
     criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Entrada'
         verbose_name_plural = 'Entradas'
-        ordering = [-'data']
+        ordering = ['-data']
 
-        def __str__(self):
-            return f'{self.get_tipo_display()} - R$ {self.valor}'
+    def __str__(self):
+        return f'{self.get_tipo_display()} — R$ {self.valor}'
 
 
 class Saida(models.Model):
@@ -44,15 +40,13 @@ class Saida(models.Model):
     descricao = models.CharField(max_length=200, blank=True)
     valor = models.DecimalField(max_digits=8, decimal_places=2)
     data = models.DateField()
-    encontro = models.ForeignKey(
-        Encontro, on_delete=models.SET_NULL, null=True, blank=True,
-        related_name='saidas')
+    encontro = models.ForeignKey(Encontro, on_delete=models.SET_NULL, null=True, blank=True, related_name='saidas')
     criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = ' Saída'
+        verbose_name = 'Saída'
         verbose_name_plural = 'Saídas'
         ordering = ['-data']
 
     def __str__(self):
-        return f'{self.get_categoria_display()} - R$ {self.valor}'
+        return f'{self.get_categoria_display()} — R$ {self.valor}'

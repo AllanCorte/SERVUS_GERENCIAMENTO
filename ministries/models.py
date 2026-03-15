@@ -1,6 +1,5 @@
 from django.db import models
 from people.models import Pessoa
-# Create your models here.
 
 
 class Ministerio(models.Model):
@@ -9,7 +8,7 @@ class Ministerio(models.Model):
 
     class Meta:
         verbose_name = 'Ministério'
-        verbose_name_plural = 'Ministerios'
+        verbose_name_plural = 'Ministérios'
         ordering = ['nome']
 
     def __str__(self):
@@ -17,16 +16,14 @@ class Ministerio(models.Model):
 
 
 class MembroMinisterio(models.Model):
-    ministerio = models.ForeignKey(
-        Ministerio, on_delete=models.CASCADE, related_name='membros')
-    pessoa = models.ForeignKey(
-        Pessoa, on_delete=models.CASCADE, related_name='monisterio')
+    ministerio = models.ForeignKey(Ministerio, on_delete=models.CASCADE, related_name='membros')
+    pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name='ministerios')
     ativo = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Membro do Ministério'
         verbose_name_plural = 'Membros dos Ministérios'
-        unique_together = ['ministério', 'pessoa']
+        unique_together = ['ministerio', 'pessoa']
 
-        def __str__(self):
-            return f'{self.pessoa.nome} - {self.ministerio.nome}'
+    def __str__(self):
+        return f'{self.pessoa.nome} — {self.ministerio.nome}'

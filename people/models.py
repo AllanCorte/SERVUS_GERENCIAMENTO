@@ -35,7 +35,7 @@ class Pessoa(models.Model):
 
     class Meta:
         verbose_name = 'Pessoa'
-        verbose_name_prural = 'Pessoas'
+        verbose_name_plural = 'Pessoas'
         ordering = ['nome']
 
     def __str__(self):

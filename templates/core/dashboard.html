@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Dashboard - SERVUS{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>Dashboard</h4>
+    <span class="text-muted">Olá, {{ request.user.username }}</span>
+</div>
+
+<!-- Cards de resumo -->
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-dark">
+            <div class="card-body">
+                <h6 class="card-title">Total de Pessoas</h6>
+                <h2 class="card-text">{{ total_pessoas }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-secondary">
+            <div class="card-body">
+                <h6 class="card-title">Membros Ativos</h6>
+                <h2 class="card-text">{{ total_membros }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Próximos encontros -->
+<h5 class="mt-4 mb-3">Próximos Encontros</h5>
+{% if proximos_encontros %}
+    <div class="row">
+        {% for encontro in proximos_encontros %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">{{ encontro.nome }}</h6>
+                    <p class="card-text text-muted">{{ encontro.data_inicio }}</p>
+                    <p class="card-text">{{ encontro.local }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">Nenhum encontro agendado.</p>
+{% endif %}
+
+<!-- Últimas notas de reunião -->
+<h5 class="mt-4 mb-3">Últimas Notas de Reunião</h5>
+{% if ultimas_notas %}
+    <div class="row">
+        {% for nota in ultimas_notas %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">{{ nota.titulo }}</h6>
+                    <p class="card-text text-muted">{{ nota.data }}</p>
+                    <p class="card-text">{{ nota.texto|truncatewords:15 }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">Nenhuma nota registrada.</p>
+{% endif %}
+
+{% endblock %}

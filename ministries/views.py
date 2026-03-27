@@ -1,8 +1,39 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from ministries.models import Ministerio, MembroMinisterio
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
 
-def ministries(request):
-    return HttpResponse("pagina de ministerios!")
+@login_required
+def lista_ministerios(request):
+    ministerios = Ministerio.objects.all()
+
+    contexto = {
+        'ministerios': ministerios,
+    }
+    return render(request, 'ministerios/lista.html', contexto)
+
+
+@login_required
+def detalhe_ministerio(request, pk):
+    ministerio = get_object_or_404(Ministerio, pk=pk)
+    membros = MembroMinisterio.objects.filter(ministerio=ministerio)
+
+    contexto = {
+        'ministerio': ministerio,
+        'membros': membros
+    }
+    return render(request, 'ministerios/detalhe.html', contexto)
+
+
+@login_required
+def novo_ministerio(request):
+    if request.method == 'POST':
+        Ministerio.objects.create(
+            nome=request.POST.get('nome'),
+            descricao=request.POST.get('descricao'),
+        )
+        return redirect('lista_ministerios')
+    return render(request, 'ministerios/novo.html')

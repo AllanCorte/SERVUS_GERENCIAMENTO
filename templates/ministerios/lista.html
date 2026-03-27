@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block titulo %} Ministérios - SERVUS{% endblock  %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>Ministerios</h4>
+    <a href="{% url 'novo_ministerio' %}" class="btn btn-outline-dark">Novo Ministério</a>
+</div>
+
+<h5>Ministerios</h5>
+{% for ministerio in ministerios  %}
+    <p>{{ministerio.nome}}
+    <a href="{% url 'detalhe_ministerio' ministerio.pk %}" class="btn btn-sm btn-outline-dark">Ver</a>
+    </p>
+{% empty %}
+    <p class="text-muted">Nenhum ministério cadastrado.</p>
+{% endfor %}
+
+{% endblock conteudo %}

@@ -16,8 +16,10 @@ class Ministerio(models.Model):
 
 
 class MembroMinisterio(models.Model):
-    ministerio = models.ForeignKey(Ministerio, on_delete=models.CASCADE, related_name='membros')
-    pessoa = models.ForeignKey(Pessoa, on_delete=models.CASCADE, related_name='ministerios')
+    ministerio = models.ForeignKey(
+        Ministerio, on_delete=models.CASCADE, related_name='membros')
+    pessoa = models.ForeignKey(
+        Pessoa, on_delete=models.CASCADE, related_name='ministerios')
     ativo = models.BooleanField(default=True)
 
     class Meta:

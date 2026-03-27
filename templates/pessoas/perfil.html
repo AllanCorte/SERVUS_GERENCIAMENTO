@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block titulo %}{{ pessoa.nome }} - SERVUS{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>{{ pessoa.nome }}</h4>
+    <a href="{% url 'lista_pessoas' %}" class="btn btn-outline-dark">Voltar</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Status:</strong> {{ pessoa.get_status_display }}</p>
+                <p><strong>Telefone:</strong> {{ pessoa.telefone|default:"—" }}</p>
+                <p><strong>Email:</strong> {{ pessoa.email|default:"—" }}</p>
+                <p><strong>Data de Nascimento:</strong> {{ pessoa.data_nascimento|default:"—" }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Endereço:</strong> {{ pessoa.endereco|default:"—" }}</p>
+                <p><strong>Cargo no Núcleo:</strong> {{ pessoa.get_cargo_nucleo_display|default:"—" }}</p>
+                <p><strong>Servo:</strong> {% if pessoa.e_servo %}Sim{% else %}Não{% endif %}</p>
+                <p><strong>Cadastrado em:</strong> {{ pessoa.criado_em|date:"d/m/Y" }}</p>
+            </div>
+        </div>
+        {% if pessoa.observacoes %}
+        <hr>
+        <p><strong>Observações:</strong></p>
+        <p>{{ pessoa.observacoes }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

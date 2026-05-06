@@ -37,3 +37,25 @@ def novo_ministerio(request):
         )
         return redirect('lista_ministerios')
     return render(request, 'ministerios/novo.html')
+
+
+@login_required
+def editar_ministerio(request, pk):
+    ministerio = get_object_or_404(Ministerio, pk=pk)
+    if request.method == 'POST':
+        ministerio.nome = request.POST.get('nome')
+        ministerio.descricao = request.POST.get('descricao')
+        ministerio.save()
+        return redirect('detalhe_ministerio', pk=ministerio.pk)
+    return render(request, 'ministerios/editar.html',
+                  {'ministerio': ministerio})
+
+
+@login_required
+def deletar_ministerio(request, pk):
+    ministerio = get_object_or_404(Ministerio, pk=pk)
+    if request.method == 'POST':
+        ministerio.delete()
+        return redirect('lista_ministerios')
+    return render(request, 'ministerios/deletar.html',
+                  {'ministerio': ministerio})

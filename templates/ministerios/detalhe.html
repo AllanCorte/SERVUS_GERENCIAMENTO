@@ -1,22 +1,37 @@
 {% extends "base.html" %}
 
-{% block titulo %}Ministérios - SERVUS{% endblock %}
+{% block titulo %}{{ ministerio.nome }} - SERVUS{% endblock %}
 
 {% block conteudo %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h4>{{ ministerio.nome }}</h4>
-    <a href="{% url 'lista_ministerios' %}" class="btn btn-outline-dark">Voltar</a>
+    <div>
+        <a href="{% url 'lista_ministerios' %}" class="btn btn-outline-dark">Voltar</a>
+        <a href="{% url 'editar_ministerio' ministerio.pk %}" class="btn btn-secondary ms-2">Editar</a>
+        <a href="{% url 'deletar_ministerio' ministerio.pk %}" class="btn btn-danger ms-2">Deletar</a>
+    </div>
 </div>
 
-    <p>{{ ministerio.descricao }}</p>
+{% if ministerio.descricao %}
+<div class="card mb-4">
+    <div class="card-body">
+        <p class="mb-0">{{ ministerio.descricao }}</p>
+    </div>
+</div>
+{% endif %}
 
-    <h5>Membros</h5>
-    {% for membro in membros  %}
-        <p>{{membro.pessoa.nome}}</p>
-    {% empty %}
-        <p class="text-muted">Nenhum membro neste ministério.</p>
+<h5 class="mb-3">Membros</h5>
+<div class="card">
+    <div class="card-body">
+        {% for membro in membros %}
+        <div class="d-flex align-items-center py-2 border-bottom">
+            <span>{{ membro.pessoa.nome }}</span>
+        </div>
+        {% empty %}
+        <p class="text-muted mb-0">Nenhum membro neste ministério.</p>
+        {% endfor %}
+    </div>
+</div>
 
-    {% endfor %}
-
-{% endblock  %}
+{% endblock %}

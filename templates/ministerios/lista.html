@@ -1,21 +1,25 @@
 {% extends "base.html" %}
 
-{% block titulo %} Ministérios - SERVUS{% endblock  %}
+{% block titulo %}Ministérios - SERVUS{% endblock %}
 
 {% block conteudo %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4>Ministerios</h4>
-    <a href="{% url 'novo_ministerio' %}" class="btn btn-outline-dark">Novo Ministério</a>
+    <h4>Ministérios</h4>
+    <a href="{% url 'novo_ministerio' %}" class="btn btn-dark">Novo Ministério</a>
 </div>
 
-<h5>Ministerios</h5>
-{% for ministerio in ministerios  %}
-    <p>{{ministerio.nome}}
-    <a href="{% url 'detalhe_ministerio' ministerio.pk %}" class="btn btn-sm btn-outline-dark">Ver</a>
-    </p>
-{% empty %}
-    <p class="text-muted">Nenhum ministério cadastrado.</p>
-{% endfor %}
+<div class="card">
+    <div class="card-body">
+        {% for ministerio in ministerios %}
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <span class="fw-bold">{{ ministerio.nome }}</span>
+            <a href="{% url 'detalhe_ministerio' ministerio.pk %}" class="btn btn-sm btn-outline-dark">Ver</a>
+        </div>
+        {% empty %}
+        <p class="text-muted mb-0">Nenhum ministério cadastrado.</p>
+        {% endfor %}
+    </div>
+</div>
 
-{% endblock conteudo %}
+{% endblock %}

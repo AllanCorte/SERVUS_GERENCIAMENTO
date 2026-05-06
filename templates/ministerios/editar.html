@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block titulo %}Novo Ministério - SERVUS{% endblock %}
+{% block titulo %}Editar Ministério - SERVUS{% endblock %}
 
 {% block conteudo %}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4>Novo Ministério</h4>
-    <a href="{% url 'lista_ministerios' %}" class="btn btn-outline-dark">Voltar</a>
+    <h4>Editar Ministério</h4>
+    <a href="{% url 'detalhe_ministerio' ministerio.pk %}" class="btn btn-outline-dark">Voltar</a>
 </div>
 
 <div class="card">
@@ -15,11 +15,11 @@
             {% csrf_token %}
             <div class="mb-3">
                 <label class="form-label fw-bold">Nome</label>
-                <input type="text" name="nome" class="form-control">
+                <input type="text" name="nome" class="form-control" value="{{ ministerio.nome }}">
             </div>
             <div class="mb-3">
                 <label class="form-label fw-bold">Descrição</label>
-                <textarea name="descricao" class="form-control"></textarea>
+                <textarea name="descricao" class="form-control">{{ ministerio.descricao }}</textarea>
             </div>
             <button type="submit" class="btn btn-dark">Salvar</button>
         </form>

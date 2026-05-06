@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block titulo %}Pessoas - SERVUS{% endblock %}
+
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>Pessoas</h4>
+    <a href="{% url 'nova_pessoa' %}" class="btn btn-dark">Nova Pessoa</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% for pessoa in pessoas %}
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+            <div>
+                <span class="fw-bold">{{ pessoa.nome }}</span>
+                <span class="text-muted ms-2">{{ pessoa.telefone }}</span>
+            </div>
+            <div>
+                <span class="badge bg-secondary me-2">{{ pessoa.get_status_display }}</span>
+                <a href="{% url 'perfil_pessoa' pessoa.pk %}" class="btn btn-sm btn-outline-dark">Ver</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted mb-0">Nenhuma pessoa cadastrada.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

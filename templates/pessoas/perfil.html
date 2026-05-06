@@ -6,7 +6,11 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h4>{{ pessoa.nome }}</h4>
-    <a href="{% url 'lista_pessoas' %}" class="btn btn-outline-dark">Voltar</a>
+    <div>
+        <a href="{% url 'lista_pessoas' %}" class="btn btn-outline-dark">Voltar</a>
+        <a href="{% url 'editar_pessoa' pessoa.pk %}" class="btn btn-secondary ms-2">Editar</a>
+        <a href="{% url 'deletar_pessoa' pessoa.pk %}" class="btn btn-danger ms-2">Deletar</a>
+    </div>
 </div>
 
 <div class="card">
